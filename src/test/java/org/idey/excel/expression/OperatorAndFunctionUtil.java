@@ -41,7 +41,7 @@ public abstract class OperatorAndFunctionUtil {
                 new FileReader(OperatorAndFunctionUtil.class.getResource(EXPRESSION_FILE_PATH).getPath()),',','"')){
             List<String[]> lists = reader.readAll();
             list.addAll(lists.stream().map(array -> new Expression(array[0], Integer.parseInt(array[1]),
-                    Integer.parseInt(array[2]), Boolean.parseBoolean(array[3]))).collect(Collectors.toList()));
+                    Integer.parseInt(array[2]))).collect(Collectors.toList()));
         } catch (IOException e) {
             throw new IllegalArgumentException(e);
         }
@@ -95,16 +95,13 @@ public abstract class OperatorAndFunctionUtil {
       private String expression;
       private int expectedOutputOfRPNTest;
       private int expectedOutputOfExpressionTest;
-      private boolean expectedOutputOfValidity;
 
       public Expression(String expression,
                         int expectedOutputOfRPNTest,
-                        int expectedOutputOfExpressionTest,
-                        boolean expectedOutputOfValidity) {
+                        int expectedOutputOfExpressionTest) {
           this.expression = expression;
           this.expectedOutputOfRPNTest = expectedOutputOfRPNTest;
           this.expectedOutputOfExpressionTest = expectedOutputOfExpressionTest;
-          this.expectedOutputOfValidity = expectedOutputOfValidity;
       }
 
       public String getExpression() {
@@ -119,17 +116,12 @@ public abstract class OperatorAndFunctionUtil {
           return expectedOutputOfExpressionTest;
       }
 
-      public boolean isExpectedOutputOfValidity() {
-          return expectedOutputOfValidity;
-      }
-
       @Override
       public String toString() {
           return "Expression{" +
                   "expression='" + expression + '\'' +
                   ", expectedOutputOfExpressionTest=" + expectedOutputOfExpressionTest +
                   ", expectedOutputOfRPNTest=" + expectedOutputOfRPNTest +
-                  ", expectedOutputOfValidity=" + expectedOutputOfValidity +
                   '}';
       }
   }

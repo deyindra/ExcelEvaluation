@@ -19,7 +19,7 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
 
     @Test
     @Parameters(method = "checkExpression")
-    public void testRPN(String strExpression, boolean expectedValidaton){
+    public void testRPN(String strExpression){
         MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
                 .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
                 .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
@@ -27,14 +27,16 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
         Assert.assertTrue(expression.validate().isSuccess());
         LOGGER.info(String.format("%s = %f",strExpression, expression.evaluate()));
     }
-
     private Object[] checkExpression() {
         Object[] objects = new Object[list.size()];
         for(int count=0;count<list.size();count++){
             Expression expression = list.get(count);
-            objects[count] = new Object[]{expression.getExpression(),
-                    expression.isExpectedOutputOfValidity()};
+            objects[count] = new Object[]{expression.getExpression()};
         }
         return objects;
     }
+
+
+
+
 }

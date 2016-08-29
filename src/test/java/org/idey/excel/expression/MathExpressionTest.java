@@ -19,7 +19,7 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
 
     @Test
     @Parameters(method = "checkExpression")
-    public void testRPN(String strExpression){
+    public void testExpression(String strExpression){
         MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
                 .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
                 .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
@@ -34,6 +34,57 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
             objects[count] = new Object[]{expression.getExpression()};
         }
         return objects;
+    }
+
+
+    @Test
+    @Parameters(method = "checkExpressionWithVariable")
+    public void testExpressionWithVariable(String strExpression, Object[][] array){
+        MathExpression.MathExpressionBuilder builder = new MathExpression.MathExpressionBuilder(strExpression)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]));
+
+        for(Object[] arr:array){
+            builder.withVariables((String)arr[0],(Double)arr[1]);
+        }
+        MathExpression expression = builder.build();
+        Assert.assertTrue(expression.validate().isSuccess());
+        LOGGER.info(String.format("%s = %f",strExpression, expression.evaluate()));
+    }
+
+    private Object[] checkExpressionWithVariable() {
+        return new Object[]{
+            new Object[]{"x+y", new Object[][]{{"x",2d},{"y",2d}}},
+            new Object[]{"-x", new Object[][]{{"x",2d}}},
+            new Object[]{"x!y!x", new Object[][]{{"x",2d},{"y",2d}}},
+        };
+    }
+
+    @Test
+    @Parameters(method = "checkExpressionWithExpression")
+    public void testExpressionWithExpression(String strExpression, String[][] array){
+        MathExpression.MathExpressionBuilder builder = new MathExpression.MathExpressionBuilder(strExpression)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]));
+
+        for(String[] arr:array){
+            builder.withExpression(arr[0],new MathExpression.MathExpressionBuilder(arr[1])
+                    .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                    .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                    .build()
+            );
+        }
+        MathExpression expression = builder.build();
+        Assert.assertTrue(expression.validate().isSuccess());
+        LOGGER.info(String.format("%s = %f",strExpression, expression.evaluate()));
+    }
+
+    private Object[] checkExpressionWithExpression() {
+        return new Object[]{
+                new Object[]{"x+y", new String[][]{{"x","2+3"},{"y","3+1"}}},
+                new Object[]{"-x", new String[][]{{"x","-3"}}},
+                new Object[]{"x!y!x", new String[][]{{"x","2+2"},{"y","3+1"}}},
+        };
     }
 
 

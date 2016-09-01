@@ -259,10 +259,6 @@ public class MathExpression {
         private static Map<String, ValueExpPair> getConstantVariables(){
             return Collections.unmodifiableMap(map);
         }
-
-        private static Set<String> getAllConstantVariables(){
-            return Collections.unmodifiableSet(map.keySet());
-        }
-    }
+   }
 
 }

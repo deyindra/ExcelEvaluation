@@ -45,9 +45,12 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]));
 
         for(Object[] arr:array){
-            builder.withVariables((String)arr[0],(Double)arr[1]);
+            builder.withVariableOrExpressionsNames((String)arr[0]);
         }
         MathExpression expression = builder.build();
+        for(Object[] arr:array){
+            expression.setValue((String)arr[0], (Double)arr[1]);
+        }
         Assert.assertTrue(expression.validate().isSuccess());
         LOGGER.info(String.format("%s = %f",strExpression, expression.evaluate()));
     }
@@ -68,13 +71,16 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]));
 
         for(String[] arr:array){
-            builder.withExpression(arr[0],new MathExpression.MathExpressionBuilder(arr[1])
+            builder.withVariableOrExpressionsNames(arr[0]);
+        }
+        MathExpression expression = builder.build();
+        for(String[] arr:array){
+            expression.setExpression(arr[0], new MathExpression.MathExpressionBuilder(arr[1])
                     .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
                     .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
                     .build()
             );
         }
-        MathExpression expression = builder.build();
         Assert.assertTrue(expression.validate().isSuccess());
         LOGGER.info(String.format("%s = %f",strExpression, expression.evaluate()));
     }

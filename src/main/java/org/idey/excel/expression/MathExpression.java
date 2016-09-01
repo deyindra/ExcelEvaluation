@@ -11,12 +11,40 @@ import java.util.*;
 
 public class MathExpression {
     private AbstractExpressionToken[] tokens;
-    private Map<String, Double> variables;
+    private Map<String, ValueExpPair> variables;
 
     private MathExpression(AbstractExpressionToken[] tokens,
-                           Map<String, Double> variables) {
+                           Map<String, ValueExpPair> variables) {
         this.tokens = tokens;
         this.variables = variables;
+    }
+
+    private MathExpression setVariableOrExpression(String name, Object value, boolean isExpression){
+        if(name!=null && name.trim().length()!=0){
+            name = name.trim().toLowerCase();
+        }else{
+            throw new IllegalArgumentException("Name can not be null");
+        }
+        if(value == null){
+            throw new IllegalArgumentException((!isExpression? "Invalid Value" : "Invalid Expression"));
+        }
+        if(!variables.containsKey(name)){
+            throw new IllegalArgumentException(String.format("%s is not registered variable",name));
+        }
+        if(!isExpression) {
+            variables.put(name, new ValueExpPair((Double) value));
+        }else {
+            variables.put(name, new ValueExpPair((MathExpression) value));
+        }
+        return this;
+    }
+
+    public MathExpression setValue(String name, Double value){
+        return setVariableOrExpression(name,value,false);
+    }
+
+    public MathExpression setExpression(String name, MathExpression value){
+        return setVariableOrExpression(name,value,true);
     }
 
     public ExpressionValidationResult validate(){
@@ -24,8 +52,17 @@ public class MathExpression {
         for (final AbstractExpressionToken t : this.tokens) {
             if (t.getType() == TokenEnum.TOKEN_VARIABLE) {
                 final String var = ((VariableExpressionToken) t).getName();
-                if (!variables.containsKey(var)) {
+                ValueExpPair expPair = variables.get(var);
+                if (expPair == null) {
                     errors.add(String.format("The setVariable '%s' has not been set",var));
+                }else{
+                    if(expPair.isExpression()){
+                        MathExpression subExpression = expPair.getExpression();
+                        ExpressionValidationResult result = subExpression.validate();
+                        if(!result.isSuccess()){
+                            errors.addAll(result.getErrors());
+                        }
+                    }
                 }
             }
         }
@@ -75,11 +112,19 @@ public class MathExpression {
                 output.push(((NumberExpressionToken) t).getValue());
             } else if (t.getType() == TokenEnum.TOKEN_VARIABLE) {
                 final String name = ((VariableExpressionToken) t).getName();
-                final Double value = this.variables.get(name);
-                if (value == null) {
+                ValueExpPair valueExpPair = this.variables.get(name);
+                if (valueExpPair == null) {
                     throw new IllegalArgumentException(String.format("No value has been set for the setVariable '%s'",name));
+                }else{
+                  Double value;
+                  if(!valueExpPair.isExpression()){
+                      value = valueExpPair.getValue();
+                  }else{
+                      MathExpression subExpression = valueExpPair.getExpression();
+                      value = subExpression.evaluate();
+                  }
+                  output.push(value);
                 }
-                output.push(value);
             } else if (t.getType() == TokenEnum.TOKEN_OPERATOR) {
                 OperatorExpressionToken op = (OperatorExpressionToken) t;
                 if (output.size() < op.getOperator().getNumOperands()) {
@@ -117,7 +162,7 @@ public class MathExpression {
 
     public static class MathExpressionBuilder{
         private final String expression;
-        private final Map<String, Double> userDefinedVariables;
+        private final Map<String, ValueExpPair> userDefinedVariables;
         private final Map<String, AbstractOperator> userDefinedOperators;
         private final Map<String, AbstractFunction> userDefinedFunctions;
 
@@ -148,31 +193,12 @@ public class MathExpression {
             return name;
         }
 
-        public MathExpressionBuilder withVariables(String name, double value){
+        public MathExpressionBuilder withVariableOrExpressionsNames(String name){
             name = checkName(name);
-            userDefinedVariables.put(name,value);
+            userDefinedVariables.put(name,null);
             return this;
         }
 
-        public MathExpressionBuilder withExpression(String name, MathExpression expression){
-            if(expression==null){
-                throw new IllegalArgumentException("Invalid Expression");
-            }else{
-                ExpressionValidationResult result = expression.validate();
-                if(!result.isSuccess()){
-                    StringBuilder builder = new StringBuilder("");
-                    String seperator = "";
-                    Set<String> errors = result.getErrors();
-                    for(String value:errors){
-                        builder.append(seperator).append(value);
-                        seperator="\n";
-                    }
-                    throw new IllegalArgumentException(builder.toString());
-                }else{
-                    return withVariables(name,expression.evaluate());
-                }
-            }
-        }
 
         public MathExpressionBuilder withUserDefineFunction(AbstractFunction function){
             if(function==null){
@@ -218,6 +244,24 @@ public class MathExpression {
             AbstractExpressionToken[] tokens = RPN.infixToRPN(expression,
                     userDefinedFunctions,userDefinedOperators,userDefinedVariables.keySet());
             return new MathExpression(tokens,userDefinedVariables);
+        }
+    }
+
+
+    private static class ConstantVariableUtil {
+        private static final Map<String, ValueExpPair> map = new HashMap<>();
+        static{
+            map.put("pi", new ValueExpPair(Math.PI));
+            map.put("π", new ValueExpPair(Math.PI));
+            map.put("φ", new ValueExpPair(1.61803398874d));
+            map.put("e", new ValueExpPair(Math.E));
+        }
+        private static Map<String, ValueExpPair> getConstantVariables(){
+            return Collections.unmodifiableMap(map);
+        }
+
+        private static Set<String> getAllConstantVariables(){
+            return Collections.unmodifiableSet(map.keySet());
         }
     }
 

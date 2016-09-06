@@ -1,5 +1,5 @@
 # ExcelEvaluation
-![build status](https://travis-ci.org/deyindra/ExcelEvaluation.svg?branch=master)
+[![Build Status](https://travis-ci.org/deyindra/ExcelEvaluation.svg?branch=master)](https://travis-ci.org/deyindra/ExcelEvaluation)
 
 Class Diagram
 ============================

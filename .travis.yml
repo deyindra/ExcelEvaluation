@@ -1,6 +1,8 @@
 language: java
+sudo: false
 jdk:
   - oraclejdk8
-script: mvn clean install
+script:
+  - mvn clean install
 after_success:
   - bash <(curl -s https://codecov.io/bash) -t fa7cfc5c-da5a-4dbe-8776-8806f42c5f4b

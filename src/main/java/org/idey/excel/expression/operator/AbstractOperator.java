@@ -1,5 +1,6 @@
 package org.idey.excel.expression.operator;
 
+import org.idey.excel.expression.CoverageIgnore;
 import org.idey.excel.expression.util.AssertUtil;
 
 /**
@@ -113,6 +114,7 @@ public abstract class AbstractOperator {
                 '}';
     }
 
+    @CoverageIgnore
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,6 +129,7 @@ public abstract class AbstractOperator {
 
     }
 
+    @CoverageIgnore
     @Override
     public int hashCode() {
         int result = numOperands;

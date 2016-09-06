@@ -1,5 +1,6 @@
 package org.idey.excel.expression.function;
 
+import org.idey.excel.expression.CoverageIgnore;
 import org.idey.excel.expression.util.AssertUtil;
 
 /**
@@ -74,7 +75,7 @@ public abstract class AbstractFunction {
      */
     protected abstract Double apply(Double ... args);
 
-
+    @CoverageIgnore
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -87,6 +88,7 @@ public abstract class AbstractFunction {
 
     }
 
+    @CoverageIgnore
     @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;

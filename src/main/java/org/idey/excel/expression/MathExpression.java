@@ -200,7 +200,7 @@ public class MathExpression {
         }
 
 
-        public MathExpressionBuilder withUserDefineFunction(AbstractFunction function){
+        private MathExpressionBuilder withUserDefineFunction(AbstractFunction function){
             if(function==null){
                 throw new IllegalArgumentException("Invalid Function");
             }
@@ -220,7 +220,7 @@ public class MathExpression {
             return this;
         }
 
-        public MathExpressionBuilder withUserDefineOperator(AbstractOperator operator){
+        private MathExpressionBuilder withUserDefineOperator(AbstractOperator operator){
             if(operator==null){
                 throw new IllegalArgumentException("Invalid Operator");
             }

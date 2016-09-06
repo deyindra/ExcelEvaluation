@@ -87,13 +87,105 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
 
     private Object[] checkExpressionWithExpression() {
         return new Object[]{
-                new Object[]{"x+y", new String[][]{{"x","2+3"},{"y","3+1"}}},
+                new Object[]{"x+y", new String[][]{{"X","2+3"},{"y","3+1"}}},
                 new Object[]{"-x", new String[][]{{"x","-3"}}},
                 new Object[]{"x!y!x", new String[][]{{"x","2+2"},{"y","3+1"}}},
         };
     }
 
+    @Test
+    @Parameters(method = "failedInvalidExpressionTest")
+    public void testFailedInvalidExpression(String strExpression){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression).build();
+    }
+    private Object[] failedInvalidExpressionTest() {
+        return new Object[]{
+            new Object[]{null},
+            new Object[]{""},
+            new Object[]{" "}
+
+        };
+    }
 
 
+
+
+    @Test
+    @Parameters(method = "failedOperatorAdditionTest")
+    public void testFailedOpretatorTest(String strExpression, AbstractOperator[] operators){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                                        .withUserDefineOperator(operators).build();
+    }
+
+
+    private Object[] failedOperatorAdditionTest() {
+        return new Object[]{
+                new Object[]{"2+3", null},
+                new Object[]{"2+3", new AbstractOperator[]{}},
+                new Object[]{"2+3", new AbstractOperator[]{null}},
+                new Object[]{"2+3", new AbstractOperator[]{new AbstractOperator("+",2,true,50000) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return args[0];
+                    }
+                }}},
+
+        };
+    }
+
+
+    @Test
+    @Parameters(method = "failedFunctionAdditionTest")
+    public void testFailedFunctionTest(String strExpression, AbstractFunction[] functions){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withUserDefineFunction(functions).build();
+    }
+
+
+    private Object[] failedFunctionAdditionTest() {
+        return new Object[]{
+                new Object[]{"2+3", null},
+                new Object[]{"2+3", new AbstractFunction[]{}},
+                new Object[]{"2+3", new AbstractFunction[]{null}},
+                new Object[]{"2+3", new AbstractFunction[]{new AbstractFunction("sin",0) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return 1d;
+                    }
+                }}},
+                new Object[]{"2+3", new AbstractFunction[]{new AbstractFunction("pi",0) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return 1d;
+                    }
+                }}}
+
+        };
+    }
+
+    @Test
+    @Parameters(method = "failedVariableAdditionTest")
+    public void testFailedVariableAdditionTest(String strExpression,
+                                               String variableName){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames(variableName).build();
+
+    }
+
+
+    private Object[] failedVariableAdditionTest() {
+        return new Object[]{
+            new Object[]{"2+3x",null},
+            new Object[]{"2+3x",""},
+            new Object[]{"2+3x","pi"},
+            new Object[]{"2+3x","sin"},
+            new Object[]{"2+3x","+"},
+        };
+
+    }
 
 }

@@ -19,6 +19,16 @@ public class AssertUtilTest {
     @Rule public ExpectedException expectedException = ExpectedException.none();
 
     @Test
+    public void test(){
+        AssertUtil.checkNull("ABC");
+        AssertUtil.checkNull(new String[]{"ABC"});
+        AssertUtil.checkNull(Arrays.asList("ABC"));
+        AssertUtil.checkNull(new String[]{"ABC"},1);
+        AssertUtil.checkNull(Arrays.asList("ABC"),1);
+
+    }
+
+    @Test
     @Parameters(method = "checkNull")
     public void testCheckNull(String object){
         expectedException.expect(IllegalArgumentException.class);

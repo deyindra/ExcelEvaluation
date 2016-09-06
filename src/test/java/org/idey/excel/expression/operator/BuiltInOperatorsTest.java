@@ -33,6 +33,11 @@ public class BuiltInOperatorsTest {
                 {'%',2, BuiltInOperators.MODULO},
                 {'#',2, null},
                 {'/',3, null},
+                {'*',3, null},
+                {'*',3, null},
+                {'%',3, null},
+                {'+',3, null},
+                {'-',3, null},
         });
     }
 

@@ -94,6 +94,7 @@
                         <ignoreMethodAnnotation>org.idey.excel.expression.CoverageIgnore</ignoreMethodAnnotation>
                     </instrumentation>
                     <formats>
+                        <format>xml</format>
                         <format>html</format>
                     </formats>
                 </configuration>

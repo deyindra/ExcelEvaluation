@@ -12,6 +12,9 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 @RunWith(JUnitParamsRunner.class)
 public class RPNTest extends OperatorAndFunctionUtil{
     @Rule
@@ -23,7 +26,7 @@ public class RPNTest extends OperatorAndFunctionUtil{
     @Parameters(method = "checkExpression")
     public void testRPN(String expression, int expectedSize){
         AbstractExpressionToken[] abstractExpressionTokens =
-                RPN.infixToRPN(expression,functionMap,operatorMap,null);
+                RPN.infixToRPN(expression,functionMap,operatorMap,new HashSet<>(Arrays.asList("e","pi","π","φ")));
         for(AbstractExpressionToken token:abstractExpressionTokens){
             LOGGER.info(token.toString());
         }

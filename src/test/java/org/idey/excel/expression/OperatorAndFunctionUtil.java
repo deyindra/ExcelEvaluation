@@ -68,6 +68,23 @@ public abstract class OperatorAndFunctionUtil {
                         return result;
                     }
                 }
+        ),
+        DOUBLEFACTORIAL(
+               new AbstractOperator(">>", 2, true, 10002) {
+                   @Override
+                   protected Double apply(Double... args) {
+                       int args0 = getInteger(args[0]);
+                       int args1 = getInteger(args[1]);
+                       return (double)(args0>>args1);
+                   }
+                   private int getInteger(Double value){
+                       final int intValue = value.intValue();
+                       if ((double) intValue != value) {
+                           throw new IllegalArgumentException("Operand for bit shift has to be an integer");
+                       }
+                       return intValue;
+                   }
+               }
         );
         private AbstractOperator operator;
         UserDefineOperatorEnum(AbstractOperator operator) {

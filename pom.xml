@@ -91,7 +91,7 @@
                             <include>org/idey/excel/**/*.class</include>
                         </includes>
                         <ignoreTrivial>true</ignoreTrivial>
-                        <ignoreMethodAnnotation>org.idey.excel.expression.CoverageIgnore</ignoreMethodAnnotation>
+                        <ignoreMethodAnnotation>org.idey.excel.expression.IgnoreCoverage</ignoreMethodAnnotation>
                     </instrumentation>
                     <formats>
                         <format>xml</format>

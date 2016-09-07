@@ -1,6 +1,6 @@
 package org.idey.excel.expression.tokenizer;
 
-import org.idey.excel.expression.CoverageIgnore;
+import org.idey.excel.expression.IgnoreCoverage;
 import org.idey.excel.expression.function.AbstractFunction;
 import org.idey.excel.expression.function.BuiltInFunctions;
 import org.idey.excel.expression.operator.AbstractOperator;
@@ -57,7 +57,7 @@ public class ExpressionTokenizer implements Iterator<AbstractExpressionToken>, I
      *
      * @return samen ExpressionTokenizer instance
      */
-    @CoverageIgnore
+    @IgnoreCoverage
     @Override
     public Iterator<AbstractExpressionToken> iterator() {
         return this;

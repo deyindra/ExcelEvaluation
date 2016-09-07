@@ -11,6 +11,7 @@ public class IllegalFunctionOrVariableException extends IllegalArgumentException
 	 * Serial version UID.
 	 */
 	private static final long serialVersionUID = 1L;
+	protected static final String ERROR_MESSAGE_FORMAT = "Unknown function or variable '%s' at pos %d in expression '%s'";
 	private final String message;
 	private final String expression;
 	private final String token;
@@ -20,12 +21,12 @@ public class IllegalFunctionOrVariableException extends IllegalArgumentException
 		this.expression = expression;
 		this.token = token(expression, position, length);
 		this.position = position;
-		this.message = "Unknown function or variable '" + token + "' at pos " + position + " in expression '" + expression + "'";
+		this.message = String.format(ERROR_MESSAGE_FORMAT,token,position,expression);
 	}
 
 	private String token(String expression, int position, int length) {
 		int len = expression.length();
-		int end = position + length - 1;
+		int end = position + length;
 		if (len < end) {
 			end = len;
 		}

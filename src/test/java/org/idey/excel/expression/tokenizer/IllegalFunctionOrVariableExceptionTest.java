@@ -24,6 +24,8 @@ public class IllegalFunctionOrVariableExceptionTest {
 
     private Object[] testExpression() {
         return new Object[]{
+                new Object[]{"x",0,"x".length(),"x"},
+                new Object[]{"x3",0,"x".length(),"x"},
                 new Object[]{"2x3",1,"x".length(),"x"},
                 new Object[]{"2+3x",3,2,"x"},
         };

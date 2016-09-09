@@ -30,7 +30,7 @@ public class ExpressionTokenizerTest extends OperatorAndFunctionUtil{
                 new ExpressionTokenizer.TokenizerBuilder(expression)
                         .withCustomUserOperators(operatorMap)
                         .withCustomUserFunctions(functionMap)
-                        .withVariableNames(new HashSet<>(Arrays.asList("e","pi","π","φ")))
+                        .withVariableNames(new HashSet<>(Arrays.asList("E","e","pi","π","φ")))
                         .build();
         int count=0;
         while (expressionTokenizer.hasNext()){

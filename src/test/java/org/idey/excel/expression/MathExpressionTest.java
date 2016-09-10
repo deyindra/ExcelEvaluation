@@ -215,6 +215,30 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
 
     }
 
+    @Test
+    @Parameters(method = "failedVariableValueAdditionTest")
+    public void expresessionVariableTest(String strExpression,String expressionVariableName,
+                                         String name,Double value){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames(expressionVariableName)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .build();
+        expression.setValue(name,value);
+    }
+
+    private Object[] failedVariableValueAdditionTest() {
+        return new Object[]{
+                new Object[]{"2+3x","x",null,1d},
+                new Object[]{"2+3x","x"," ",1d},
+                new Object[]{"2+3x","x","x",null},
+                new Object[]{"2+3x","x","X",null},
+                new Object[]{"2+3x","x","y",1d},
+        };
+
+    }
+
 
 
 

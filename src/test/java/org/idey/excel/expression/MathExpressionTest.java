@@ -116,7 +116,10 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
     public void testFailedOpretatorTest(String strExpression, AbstractOperator[] operators){
         expectedException.expect(Exception.class);
         MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
-                                        .withUserDefineOperator(operators).build();
+                .withVariableOrExpressionsNames("~")
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .withUserDefineOperator(operators).build();
     }
 
 
@@ -131,7 +134,18 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                         return args[0];
                     }
                 }}},
-
+                new Object[]{"2+3", new AbstractOperator[]{new AbstractOperator(">>",2,true,50000) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return args[0];
+                    }
+                }}},
+                new Object[]{"2+3", new AbstractOperator[]{new AbstractOperator("~",2,true,50000) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return args[0];
+                    }
+                }}}
         };
     }
 
@@ -172,7 +186,10 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                                                String variableName){
         expectedException.expect(Exception.class);
         MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
-                .withVariableOrExpressionsNames(variableName).build();
+                .withVariableOrExpressionsNames(variableName)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .build();
 
     }
 
@@ -184,8 +201,13 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
             new Object[]{"2+3x","pi"},
             new Object[]{"2+3x","sin"},
             new Object[]{"2+3x","+"},
+            new Object[]{"2+3x",">>"},
+            new Object[]{"2+3x","now"},
         };
 
     }
+
+
+
 
 }

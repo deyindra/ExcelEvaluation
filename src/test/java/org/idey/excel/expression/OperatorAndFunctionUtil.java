@@ -93,7 +93,7 @@ public abstract class OperatorAndFunctionUtil {
     }
 
 
-  enum UserDefineFunctionEnum{
+  protected enum UserDefineFunctionEnum{
         NOW(
             new AbstractFunction("now",0) {
                 @Override

@@ -155,6 +155,9 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
     public void testFailedFunctionTest(String strExpression, AbstractFunction[] functions){
         expectedException.expect(Exception.class);
         MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames("~")
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
                 .withUserDefineFunction(functions).build();
     }
 
@@ -175,8 +178,13 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                     protected Double apply(Double... args) {
                         return 1d;
                     }
+                }}},
+                new Object[]{"2+3", new AbstractFunction[]{new AbstractFunction("now",0) {
+                    @Override
+                    protected Double apply(Double... args) {
+                        return 1d;
+                    }
                 }}}
-
         };
     }
 

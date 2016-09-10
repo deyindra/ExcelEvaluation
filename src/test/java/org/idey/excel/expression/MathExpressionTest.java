@@ -236,9 +236,38 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 new Object[]{"2+3x","x","X",null},
                 new Object[]{"2+3x","x","y",1d},
         };
-
     }
 
+
+    @Test
+    @Parameters(method = "failedVariableExpressionAdditionTest")
+    public void expresessionSubExpressionTest(String strExpression,String expressionVariableName,
+                                         String name,String subExpresion){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames(expressionVariableName)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .build();
+        if(subExpresion != null)
+            expression.setExpression(name,new MathExpression.MathExpressionBuilder(subExpresion)
+                    .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                    .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                    .build());
+        else
+            expression.setExpression(name,null);
+    }
+
+    private Object[] failedVariableExpressionAdditionTest() {
+        return new Object[]{
+                new Object[]{"2+3x","x",null,"2+3"},
+                new Object[]{"2+3x","x"," ","2+3"},
+                new Object[]{"2+3x","x","x",null},
+                new Object[]{"2+3x","x","X",null},
+                new Object[]{"2+3x","x","y","2+3"},
+        };
+
+    }
 
 
 

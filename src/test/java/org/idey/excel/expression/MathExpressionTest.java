@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
+import java.util.Optional;
+
 @RunWith(JUnitParamsRunner.class)
 public class MathExpressionTest extends OperatorAndFunctionUtil{
     @Rule
@@ -265,6 +267,59 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 new Object[]{"2+3x","x","x",null},
                 new Object[]{"2+3x","x","X",null},
                 new Object[]{"2+3x","x","y","2+3"},
+        };
+
+    }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    @Test
+    @Parameters(method = "failednullVariableValueOrInvalidExpressionTest")
+    public void nullVariableValueOrInvalidExpressionTest(String strExpression, String variableName,
+                                                         Optional<ValueExpPair> expressionOptional,
+                                                         boolean expectedResult){
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames(variableName)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .build();
+        if(expressionOptional.isPresent()){
+            ValueExpPair expPair = expressionOptional.get();
+            if(expPair.isExpression()){
+                expression.setExpression(variableName,expPair.getExpression());
+            }else{
+                expression.setValue(variableName,expPair.getValue());
+            }
+        }
+        ExpressionValidationResult result = expression.validate();
+        if(expectedResult){
+            Assert.assertTrue(result.isSuccess());
+        }else{
+            result.getErrors().forEach(LOGGER::info);
+            Assert.assertFalse(result.isSuccess());
+        }
+    }
+
+    private Object[] failednullVariableValueOrInvalidExpressionTest() {
+        return new Object[]{
+                new Object[]{"2+3x","x",Optional.empty(),false},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(5d)),true},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(new MathExpression
+                        .MathExpressionBuilder("2+3x").withVariableOrExpressionsNames("x").build())),false},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(new MathExpression
+                        .MathExpressionBuilder("2+3").build())),true},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(new MathExpression
+                        .MathExpressionBuilder("2+3x")
+                        .withVariableOrExpressionsNames("x").build()
+                        .setExpression("x",
+                                new MathExpression.MathExpressionBuilder("2+3x")
+                                        .withVariableOrExpressionsNames("x").build()))),false},
+                new Object[]{"pow(2)","x",Optional.empty(),false},
+                new Object[]{"-pipow(2)","x",Optional.empty(),false},
+                new Object[]{"2+","x",Optional.empty(),false},
+                new Object[]{"+2","x",Optional.empty(),true},
+                new Object[]{"+2pi","x",Optional.empty(),true},
+
+
         };
 
     }

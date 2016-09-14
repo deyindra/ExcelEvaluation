@@ -321,6 +321,8 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 new Object[]{"-pipow(2,3)","x",Optional.empty(),true},
                 new Object[]{"-pipow(2,3)","x",Optional.empty(),true},
                 new Object[]{"pow(2,3,10)","x",Optional.empty(),false},
+                new Object[]{"now()","x",Optional.empty(),true},
+                new Object[]{"now(1)","x",Optional.empty(),false},
 
         };
 

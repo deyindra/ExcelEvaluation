@@ -271,7 +271,7 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
 
     }
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "Duplicates"})
     @Test
     @Parameters(method = "failednullVariableValueOrInvalidExpressionTest")
     public void nullVariableValueOrInvalidExpressionTest(String strExpression, String variableName,
@@ -323,6 +323,51 @@ public class MathExpressionTest extends OperatorAndFunctionUtil{
                 new Object[]{"pow(2,3,10)","x",Optional.empty(),false},
                 new Object[]{"now()","x",Optional.empty(),true},
                 new Object[]{"now(1)","x",Optional.empty(),false},
+
+        };
+
+    }
+
+
+
+    @SuppressWarnings({"OptionalUsedAsFieldOrParameterType", "Duplicates"})
+    @Test
+    @Parameters(method = "failedEvaluationTest")
+    public void failedEvaluateTest(String strExpression, String variableName,
+                                                         Optional<ValueExpPair> expressionOptional){
+        expectedException.expect(Exception.class);
+        MathExpression expression = new MathExpression.MathExpressionBuilder(strExpression)
+                .withVariableOrExpressionsNames(variableName)
+                .withUserDefineOperator(operatorMap.values().toArray(new AbstractOperator[operatorMap.values().size()]))
+                .withUserDefineFunction(functionMap.values().toArray(new AbstractFunction[functionMap.values().size()]))
+                .build();
+        if(expressionOptional.isPresent()){
+            ValueExpPair expPair = expressionOptional.get();
+            if(expPair.isExpression()){
+                expression.setExpression(variableName,expPair.getExpression());
+            }else{
+                expression.setValue(variableName,expPair.getValue());
+            }
+        }
+        expression.evaluate();
+    }
+
+    private Object[] failedEvaluationTest() {
+        return new Object[]{
+                new Object[]{"2+3x","x",Optional.empty()},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(new MathExpression
+                        .MathExpressionBuilder("2+3x").withVariableOrExpressionsNames("x").build()))},
+                new Object[]{"2+3x","x",Optional.of(new ValueExpPair(new MathExpression
+                        .MathExpressionBuilder("2+3x")
+                        .withVariableOrExpressionsNames("x").build()
+                        .setExpression("x",
+                                new MathExpression.MathExpressionBuilder("2+3x")
+                                        .withVariableOrExpressionsNames("x").build())))},
+                new Object[]{"pow(2)","x",Optional.empty()},
+                new Object[]{"-pipow(2)","x",Optional.empty()},
+                new Object[]{"2+","x",Optional.empty()},
+                new Object[]{"pow(2,3,10)","x",Optional.empty()},
+                new Object[]{"now(1)","x",Optional.empty()},
 
         };
 

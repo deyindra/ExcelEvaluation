@@ -26,7 +26,7 @@ public class RPNTest extends OperatorAndFunctionUtil{
     @Parameters(method = "checkExpression")
     public void testRPN(String expression, int expectedSize){
         AbstractExpressionToken[] abstractExpressionTokens =
-                RPN.infixToRPN(expression,functionMap,operatorMap,new HashSet<>(Arrays.asList("e","pi","π","φ")));
+                RPN.infixToRPN(expression,functionMap,operatorMap,new HashSet<>(Arrays.asList("E","e","pi","π","φ")));
         for(AbstractExpressionToken token:abstractExpressionTokens){
             LOGGER.info(token.toString());
         }

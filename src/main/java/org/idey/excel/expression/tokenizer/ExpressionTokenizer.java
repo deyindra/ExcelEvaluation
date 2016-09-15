@@ -199,7 +199,7 @@ public class ExpressionTokenizer implements Iterator<AbstractExpressionToken>, I
                 (isAlphabetic(expression[offset + len - 1]) ||
                         Character.isDigit(expression[offset + len - 1]) ||
                         expression[offset + len - 1] == '_')) {
-            String name = new String(expression, offset, len);
+            String name = new String(expression, offset, len).toLowerCase();
             if (variableNames != null && variableNames.contains(name)) {
                 lastValidLen = len;
                 lastValidToken = new VariableExpressionToken(name);

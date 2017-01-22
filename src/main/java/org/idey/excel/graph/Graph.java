@@ -81,6 +81,18 @@ public class Graph<T> {
         }
     }
 
+    public Set<T> getAllImediateNeighbours(T vertex) {
+        if (vertex == null) {
+            throw new IllegalArgumentException("Invalid vertex");
+        } else {
+            if (!map.containsKey(vertex)) {
+                throw new IllegalArgumentException(String.format("%s is not found", vertex.toString()));
+            } else {
+                return Collections.unmodifiableSet(map.get(vertex));
+            }
+        }
+    }
+
 
     private void fetchAllNeighbours(T vertex, Set<T> visisted, Set<T> childs){
         map.get(vertex).stream().filter(child -> !visisted.contains(child)).forEach(child -> {
@@ -90,4 +102,11 @@ public class Graph<T> {
         });
     }
 
+    public Set<T> getAllVertices(){
+        return Collections.unmodifiableSet(map.keySet());
+    }
+
+    public boolean isValidVertices(T obj){
+        return map.containsKey(obj);
+    }
 }

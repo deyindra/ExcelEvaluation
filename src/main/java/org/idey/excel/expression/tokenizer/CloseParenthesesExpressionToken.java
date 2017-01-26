@@ -1,6 +1,7 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * represents closed parentheses
  * @see AbstractExpressionToken
  */

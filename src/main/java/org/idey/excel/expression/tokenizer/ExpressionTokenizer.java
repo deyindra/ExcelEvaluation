@@ -362,6 +362,7 @@ public class ExpressionTokenizer implements Iterator<AbstractExpressionToken>, I
     }
 
     /**
+     * @author i.dey
      * Builder class
      */
     public static class TokenizerBuilder{

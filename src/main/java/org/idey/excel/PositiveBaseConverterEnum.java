@@ -3,7 +3,14 @@ package org.idey.excel;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author i.dey
+ * Class for +ve number encoding and decoding
+ */
 public enum  PositiveBaseConverterEnum {
+    /**
+     * Excel encoder and decoder for number e.g for number 1 it will generate A for number 66 it will generate AA
+     */
     EXCEL_ENCODING(65,26) {
         @Override
         protected String generate(int val) {
@@ -31,7 +38,13 @@ public enum  PositiveBaseConverterEnum {
             return converted;
         }
     },
+    /**
+     * Binary Encoder and Decoder
+     */
     BINARY(new String[]{"0", "1"}),
+    /**
+     * Hex Encoder and decoder
+     */
     HEX(new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F"});
 
 

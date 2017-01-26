@@ -3,6 +3,7 @@ package org.idey.excel.expression.tokenizer;
 import org.idey.excel.expression.operator.AbstractOperator;
 
 /**
+ * @author i.dey
  * Represents an operator used in expressions
  * @see AbstractExpressionToken
  */

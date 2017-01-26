@@ -7,15 +7,26 @@ import org.idey.excel.expression.tokenizer.ExpressionTokenizer;
 import org.idey.excel.expression.tokenizer.OperatorExpressionToken;
 import org.idey.excel.expression.tokenizer.TokenEnum;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 
 /**
- * @author
+ * @author i.dey
  * Class to convert infix to reverse polish notation
  */
-public class RPN {
+public final class ReversePolishNotation {
 
-
+    /**
+     *
+     * @param expression any mathemetical Expression
+     * @return true if all the paranthesis are balanced
+     */
     private static boolean checkBalancedParenthesis(String expression){
         final Map<Character,Character> map = new HashMap<>();
         map.put(')','(');

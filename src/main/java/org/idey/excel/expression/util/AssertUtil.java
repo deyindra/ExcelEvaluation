@@ -6,7 +6,7 @@ import java.util.Collection;
  * @author i.dey
  * Generic class for check for assertion and throw {@link IllegalArgumentException} in case assertion fails.
  */
-public class AssertUtil {
+public final class AssertUtil {
 
     /**
      * check if thr object is null or not

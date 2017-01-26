@@ -4,6 +4,7 @@ import org.idey.excel.expression.IgnoreCoverage;
 import org.idey.excel.expression.util.AssertUtil;
 
 /**
+ * @author i.dey
  * A class representing a Function which can be used in an expression
  */
 public abstract class AbstractFunction {

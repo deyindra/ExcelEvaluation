@@ -9,7 +9,7 @@ import java.util.Set;
  * @author i.dey
  * Set BuiltIn Operators
  */
-public class BuiltInOperators {
+public final class BuiltInOperators {
 
 
     protected static final AbstractOperator ADDITION =  new AbstractOperator("+", 2, true,
@@ -151,6 +151,11 @@ public class BuiltInOperators {
         }
     }
 
+    /**
+     *
+     * @param symbol check if a given symbol is part of BuiltInOperator
+     * @return true or false
+     */
     public static boolean isBuiltInOperatorSymbol(String symbol){
         return BUILT_IN_SYMBOLS.contains(symbol);
     }

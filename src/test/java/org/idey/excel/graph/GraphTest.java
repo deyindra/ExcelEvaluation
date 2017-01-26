@@ -241,6 +241,15 @@ public class GraphTest {
                 new Object[]{null, 1, false}
         };
     }
+
+    @Test
+    public void testClearGraph(){
+        Graph<Integer> g = new Graph<>();
+        g.addVertex(1).addVertex(2).addVertex(3);
+        g.addEdge(1,2).addEdge(1,3).addEdge(2,3);
+        g.clear();
+        Assert.assertTrue(g.isEmpty());
+    }
    
 
 }

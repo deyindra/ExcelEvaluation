@@ -9,13 +9,24 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class Graph<T> {
+/**
+ * @author i.dey
+ * A directed graph data structure
+ * @param <T>
+ */
+public final class Graph<T> {
     private Map<T,Set<T>> map;
 
     public Graph() {
         map = new HashMap<>();
     }
 
+    /**
+     *
+     * @param obj Vertex
+     * @return Graph
+     * @throws IllegalArgumentException in case vertex is null or already exists in the graph
+     */
     public Graph<T> addVertex(T obj){
         if(obj==null){
             throw new IllegalArgumentException("Vertex can not be null");
@@ -29,6 +40,13 @@ public class Graph<T> {
         }
     }
 
+    /**
+     * Add edge between source and destination vertex, it also check the circular dependency
+     * @param source Sourc Vertex
+     * @param desitination Vertex
+     * @return Graph
+     * @throws IllegalArgumentException in case source and desitination does not exists and or cycle detected
+     */
     public Graph<T> addEdge(T source, T desitination){
         if(source==null || desitination==null){
             throw new IllegalArgumentException("Invalid nodes");
@@ -66,6 +84,12 @@ public class Graph<T> {
         }
     }
 
+    /**
+     *
+     * @param vertex Source Vertex
+     * @return get All dependant vertex
+     * @throws IllegalArgumentException in case vertex is null or not found
+     */
     public Set<T> getAllNeighbours(T vertex){
         if(vertex == null){
             throw new IllegalArgumentException("Invalid vertex");
@@ -81,6 +105,12 @@ public class Graph<T> {
         }
     }
 
+    /**
+     *
+     * @param vertex Source Vertex
+     * @return get Immediate dependant vertex
+     * @throws IllegalArgumentException in case vertex is null or not found
+     */
     public Set<T> getAllImediateNeighbours(T vertex) {
         if (vertex == null) {
             throw new IllegalArgumentException("Invalid vertex");
@@ -102,11 +132,35 @@ public class Graph<T> {
         });
     }
 
+    /**
+     *
+     * @return all vertex
+     */
     public Set<T> getAllVertices(){
         return Collections.unmodifiableSet(map.keySet());
     }
 
+    /**
+     *
+     * @param obj vertex
+     * @return true or false based on vertex is valid or not
+     */
     public boolean isValidVertices(T obj){
         return map.containsKey(obj);
+    }
+
+    /**
+     * Clear the graph
+     */
+    public void clear(){
+        map.clear();
+    }
+
+    /**
+     *
+     * @return true if graph does not have any vertex
+     */
+    public boolean isEmpty(){
+        return map.isEmpty();
     }
 }

@@ -1,6 +1,7 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * Type of AbstractExpressionToken parsing from expression
  */
 public enum TokenEnum {

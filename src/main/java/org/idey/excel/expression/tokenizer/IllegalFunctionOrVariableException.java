@@ -1,9 +1,9 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * This exception is being thrown whenever {@link ExpressionTokenizer} finds unknown function or variable.
- *
- * @author Bartosz Firyn (sarxos)
+ * @see IllegalArgumentException
  */
 public class IllegalFunctionOrVariableException extends IllegalArgumentException {
 

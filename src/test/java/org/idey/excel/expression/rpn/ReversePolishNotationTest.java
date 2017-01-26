@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 @RunWith(JUnitParamsRunner.class)
-public class RPNTest extends OperatorAndFunctionUtil{
+public class ReversePolishNotationTest extends OperatorAndFunctionUtil{
     @Rule
     public ExceptionLoggingRule exceptionLoggingRule = new ExceptionLoggingRule();
     @Rule public ExpectedException expectedException = ExpectedException.none();
@@ -26,7 +26,7 @@ public class RPNTest extends OperatorAndFunctionUtil{
     @Parameters(method = "checkExpression")
     public void testRPN(String expression, int expectedSize){
         AbstractExpressionToken[] abstractExpressionTokens =
-                RPN.infixToRPN(expression,functionMap,operatorMap,new HashSet<>(Arrays.asList("e","pi","π","φ")));
+                ReversePolishNotation.infixToRPN(expression,functionMap,operatorMap,new HashSet<>(Arrays.asList("e","pi","π","φ")));
         for(AbstractExpressionToken token:abstractExpressionTokens){
             LOGGER.info(token.toString());
         }
@@ -48,7 +48,7 @@ public class RPNTest extends OperatorAndFunctionUtil{
     @Parameters(method = "checkFailedExpression")
     public void testFailedRPN(String expression){
         expectedException.expect(Exception.class);
-        AbstractExpressionToken[] abstractExpressionTokens = RPN.infixToRPN(expression,null,null,null);
+        AbstractExpressionToken[] abstractExpressionTokens = ReversePolishNotation.infixToRPN(expression,null,null,null);
     }
 
     private Object[] checkFailedExpression() {

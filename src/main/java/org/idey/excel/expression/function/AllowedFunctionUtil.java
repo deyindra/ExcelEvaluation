@@ -1,10 +1,11 @@
 package org.idey.excel.expression.function;
 
 /**
+ * @author i.dey
  * Utility class to check the valid function name
  *
  */
-public class AllowedFunctionUtil {
+public final class AllowedFunctionUtil {
 
     /**
      *

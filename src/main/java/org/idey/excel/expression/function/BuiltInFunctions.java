@@ -7,7 +7,7 @@ import java.util.Map;
  * @author i.dey
  * Class for Built In Functions
  */
-public class BuiltInFunctions {
+public final class BuiltInFunctions {
 
     //Map which contains all builtin function
     private static final Map<String, AbstractFunction> map = new HashMap<>();

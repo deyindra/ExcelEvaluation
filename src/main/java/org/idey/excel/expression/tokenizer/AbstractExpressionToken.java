@@ -1,6 +1,7 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * Abstract class for tokens used to tokenize expressions
  * @see ArgumentSeparatorExpressionToken
  * @see CloseParenthesesExpressionToken

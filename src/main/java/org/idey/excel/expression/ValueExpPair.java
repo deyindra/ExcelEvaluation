@@ -2,9 +2,10 @@ package org.idey.excel.expression;
 
 
 /**
+ * @author i.dey
  * This class used substitue a variable by {@link Double} or by {@link MathExpression}
  */
-public class ValueExpPair {
+final class ValueExpPair {
     private Double value;
     private MathExpression expression;
     private boolean isExpression;

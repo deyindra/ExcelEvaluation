@@ -1,0 +1,125 @@
+package org.idey.excel;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import org.idey.excel.expression.function.AbstractFunction;
+import org.idey.excel.rule.ExceptionLoggingRule;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+
+
+@RunWith(JUnitParamsRunner.class)
+public class ExcelTest {
+    @Rule
+    public ExceptionLoggingRule exceptionLoggingRule = new ExceptionLoggingRule();
+    @Rule public ExpectedException expectedException = ExpectedException.none();
+
+    @Test
+    @Parameters(method = "successExcelObjectCreation")
+    public void testSuccessExcelObjectCreation(int row, int col, AbstractFunction[] udf){
+        Excel excel;
+        if(udf!=null && udf.length>0){
+            excel = new Excel.ExcelBuilder(row,col,udf).build();
+        }else{
+            excel = new Excel.ExcelBuilder(row,col).build();
+        }
+        Assert.assertNotNull(excel);
+    }
+
+    private AbstractFunction[] returnAbstractFunctions(){
+        return new AbstractFunction[]{
+                new AbstractFunction("now", 0){
+                    @Override
+                    protected Double apply(Double... args) {
+                        return 1d;
+                    }
+                }
+        };
+    }
+
+    private Object[] successExcelObjectCreation() {
+        return new Object[]{
+                new Object[]{2,3,null},
+                new Object[]{2,3,new AbstractFunction[]{}},
+                new Object[]{2,3,returnAbstractFunctions()}
+
+        };
+    }
+
+
+    @Test
+    @Parameters(method = "failureExcelObjectCreation")
+    public void testFailureExcelObjectCreation(int row, int col){
+        expectedException.expect(IllegalArgumentException.class);
+        new Excel.ExcelBuilder(row,col);
+    }
+
+    private Object[] failureExcelObjectCreation() {
+        return new Object[]{
+                new Object[]{0,3},
+                new Object[]{3,0},
+                new Object[]{-2,3},
+                new Object[]{2,-3},
+        };
+    }
+
+    @Test
+    @Parameters(method = "successAddExpression")
+    public void testSuccessAddExpression(int totalRows, int totalCols, String expression,int row, int col, String[] dependencyCellName,
+                                         ExcelData expectedExcelData, AbstractFunction[] udf){
+        Excel excel = getExcel(totalRows,totalCols);
+        String cellName = String.format(Excel.CELL_NAME,
+                PositiveBaseConverterEnum.EXCEL_ENCODING.encode(col),row).toLowerCase();
+        excel.addExpression(expression,cellName,dependencyCellName);
+        ExcelData[][] array = excel.evaluateData();
+        Assert.assertEquals(array[row-1][col-1],expectedExcelData);
+    }
+
+    private Object[] successAddExpression() {
+        return new Object[]{
+                new Object[]{2,3,"2+3",1,1, null, new ExcelData(5d), null},
+                new Object[]{2,3,"2+A2", 1,1, new String[]{"A2"}, new ExcelData(2d), new AbstractFunction[]{}},
+                new Object[]{2,3,"2+A2", 1,1, new String[]{"A2"}, new ExcelData(2d),returnAbstractFunctions()},
+        };
+    }
+
+    @Test
+    @Parameters(method = "failureAddExpression")
+    public void testFailureAddExpression(int totalRows, int totalCols, String expression,int row, int col, String[] dependencyCellName){
+        expectedException.expect(IllegalArgumentException.class);
+        Excel excel = getExcel(totalRows,totalCols);
+
+        String cellName = null;
+        if(row>0 && col>0) {
+            cellName = String.format(Excel.CELL_NAME,
+                    PositiveBaseConverterEnum.EXCEL_ENCODING.encode(col), row).toLowerCase();
+        }else if(row==-2 && col==-2){
+            cellName ="";
+        }else if(row==-3 && col==-3){
+            cellName =" ";
+        }
+        excel.addExpression(expression,cellName,dependencyCellName);
+    }
+
+    private Object[] failureAddExpression() {
+        return new Object[]{
+                new Object[]{2,3,"",1,1, null},
+                new Object[]{2,3," ", 1,1, new String[]{"A2"}},
+                new Object[]{2,3,null, 1,1, new String[]{"A2"}},
+                new Object[]{2,3,"2+3", 5,6, new String[]{"A2"}},
+                new Object[]{2,3,"2+3", -1,-1, new String[]{"A2"}},
+                new Object[]{2,3,"2+3", -2,-2, new String[]{"A2"}},
+                new Object[]{2,3,"2+3", -3,-3, new String[]{"A2"}},
+                new Object[]{2,3,"2+3", 1,1, new String[]{null}},
+                new Object[]{2,3,"2+3", 1,1, new String[]{"A12"}},
+
+        };
+    }
+
+    private Excel getExcel(int rows, int cols){
+        return new Excel.ExcelBuilder(rows,cols,returnAbstractFunctions()).build();
+    }
+}

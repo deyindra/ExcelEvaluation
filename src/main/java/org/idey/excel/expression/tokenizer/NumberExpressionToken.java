@@ -1,6 +1,7 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * Represents a number in the expression
  * @see AbstractExpressionToken
  */

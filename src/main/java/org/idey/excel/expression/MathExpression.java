@@ -4,11 +4,26 @@ import org.idey.excel.expression.function.AbstractFunction;
 import org.idey.excel.expression.function.BuiltInFunctions;
 import org.idey.excel.expression.operator.AbstractOperator;
 import org.idey.excel.expression.operator.BuiltInOperators;
-import org.idey.excel.expression.rpn.RPN;
-import org.idey.excel.expression.tokenizer.*;
+import org.idey.excel.expression.rpn.ReversePolishNotation;
+import org.idey.excel.expression.tokenizer.AbstractExpressionToken;
+import org.idey.excel.expression.tokenizer.FunctionExpressionToken;
+import org.idey.excel.expression.tokenizer.NumberExpressionToken;
+import org.idey.excel.expression.tokenizer.OperatorExpressionToken;
+import org.idey.excel.expression.tokenizer.TokenEnum;
+import org.idey.excel.expression.tokenizer.VariableExpressionToken;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * @author i.dey
+ * A class which represents any mathemetical expression e.g. 1+2 or sin(60) or 2^3 and evaluate them and return
+ * value
+ */
 public class MathExpression {
     private AbstractExpressionToken[] tokens;
     private Map<String, ValueExpPair> variables;
@@ -39,14 +54,35 @@ public class MathExpression {
         return this;
     }
 
+    /**
+     *
+     * @param name variable name in math expression, e.g in the expression x+2, the variable name is x and if one assigned
+     *             1 to x the math expresssion will be evaluated as 3
+     * @param value {@link Double} value assigned to the variable
+     * @return MathExpression
+     */
     public MathExpression setValue(String name, Double value){
         return setVariableOrExpression(name,value,false);
     }
 
+    /**
+     *
+     * @param name child {@link MathExpression} name in math expression e.g in the expression x+2,
+     *             if the child expression name is x and one assigned {@link MathExpression}
+     *             to x as 2+3 then the outer {@link MathExpression} will be
+     *             evaluated as 2+3+2 which is 7
+     * @param value {@link MathExpression} assigned to the variable
+     * @return MathExpression
+     */
     public MathExpression setExpression(String name, MathExpression value){
         return setVariableOrExpression(name,value,true);
     }
 
+    /**
+     * This method will validate the expression and return {@link ExpressionValidationResult#SUCCESS} or
+     * {@link ExpressionValidationResult} with errors
+     * @return ExpressionValidationResult
+     */
     public ExpressionValidationResult validate(){
         final List<String> errors = new ArrayList<>(0);
         for (final AbstractExpressionToken t : this.tokens) {
@@ -105,6 +141,11 @@ public class MathExpression {
                 .addError(errors.toArray(new String[errors.size()]));
     }
 
+    /**
+     * This method will evaluate actual expression
+     * @return double
+     * @throws IllegalArgumentException in case there is any error
+     */
     public double evaluate() {
         final LinkedList<Double> output = new LinkedList<>();
         for (AbstractExpressionToken t : tokens) {
@@ -160,12 +201,22 @@ public class MathExpression {
         return output.pop();
     }
 
+    /**
+     * @author i.dey
+     * An Builder class which helps to build {@link MathExpression} object
+     * This builder class provide following contstant variable which will be autometically added to MathExpression
+     * &quote;pi&quote;,&quote;π&quote;,&quote;φ&quote;&quote;e&quote;
+     */
     public static class MathExpressionBuilder{
         private final String expression;
         private final Map<String, ValueExpPair> userDefinedVariables;
         private final Map<String, AbstractOperator> userDefinedOperators;
         private final Map<String, AbstractFunction> userDefinedFunctions;
 
+        /**
+         * @param expression any methemetical expression 1+2 or 1*sin(60)
+         * @throws IllegalArgumentException in case expression is null or empty
+         */
         public MathExpressionBuilder(final String expression) {
             if (expression==null || expression.trim().length() == 0) {
                 throw new IllegalArgumentException("The expression can not be empty");
@@ -193,6 +244,13 @@ public class MathExpression {
             return name;
         }
 
+        /**
+         *
+         * @param name any variable or expression name
+         * @return MathExpressionBuilder
+         * @throws  IllegalArgumentException in case name is null or empty or name is
+         * pre-existing in userDefinedFunctions
+         */
         public MathExpressionBuilder withVariableOrExpressionsNames(String name){
             name = checkName(name);
             userDefinedVariables.put(name,null);
@@ -210,6 +268,13 @@ public class MathExpression {
             return this;
         }
 
+        /**
+         * Sets user define functions to which can be used in {@link MathExpression}
+         * @param functions array of {@link AbstractFunction}
+         * @return MathExpressionBuilder
+         * @throws IllegalArgumentException in case functions is null or empty or individual function
+         * is null
+         */
         public MathExpressionBuilder withUserDefineFunction(AbstractFunction... functions){
             if(functions == null || functions.length==0){
                 throw new IllegalArgumentException("Invalid Functions");
@@ -230,6 +295,13 @@ public class MathExpression {
             return this;
         }
 
+        /**
+         * Sets user define operators to which can be used in {@link MathExpression}
+         * @param operators array of {@link AbstractOperator}
+         * @return MathExpressionBuilder
+         * @throws IllegalArgumentException in case operators is null or empty or individual operator
+         * is null
+         */
         public MathExpressionBuilder withUserDefineOperator(AbstractOperator... operators){
             if(operators == null || operators.length==0){
                 throw new IllegalArgumentException("Invalid Operators");
@@ -240,13 +312,16 @@ public class MathExpression {
             return this;
         }
 
+        /**
+         *
+         * @return MathExpression
+         */
         public MathExpression build(){
-            AbstractExpressionToken[] tokens = RPN.infixToRPN(expression,
+            AbstractExpressionToken[] tokens = ReversePolishNotation.infixToRPN(expression,
                     userDefinedFunctions,userDefinedOperators,userDefinedVariables.keySet());
             return new MathExpression(tokens,userDefinedVariables);
         }
     }
-
 
     private static class ConstantVariableUtil {
         private static final Map<String, ValueExpPair> map = new HashMap<>();

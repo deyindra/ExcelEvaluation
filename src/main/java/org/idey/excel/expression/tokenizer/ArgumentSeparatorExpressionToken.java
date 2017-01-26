@@ -1,6 +1,7 @@
 package org.idey.excel.expression.tokenizer;
 
 /**
+ * @author i.dey
  * Represents an argument separator in functions i.e: ','
  * @see AbstractExpressionToken
  */

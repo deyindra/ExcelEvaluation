@@ -21,7 +21,7 @@ API and Usage
     public class Sample{
         public static void main(String[] args){
           MathExpression expression = new MathExpression.MathExpressionBuilder("0+1").build();
-          System.out.printf(expression.evaluate()); //print 1.0
+          System.out.println(expression.evaluate()); //print 1.0
         }
     }
 ```
@@ -31,7 +31,7 @@ API and Usage
        public class Sample{
            public static void main(String[] args){
              MathExpression expression = new MathExpression.MathExpressionBuilder("pow(2,3)").build();
-             System.out.printf(expression.evaluate()); //print 8.0
+             System.out.println(expression.evaluate()); //print 8.0
            }
        } 
 ```
@@ -45,7 +45,7 @@ Following Built In Functions are available as part of this package - "sin", "cos
        public class Sample{
            public static void main(String[] args){
              MathExpression expression = new MathExpression.MathExpressionBuilder("2^3").build();
-             System.out.printf(expression.evaluate()); //print 8.0
+             System.out.println(expression.evaluate()); //print 8.0
            }
        } 
 ```
@@ -62,12 +62,31 @@ Following Built In Operators are available as part of this package - "+", "-", "
       public class Sample{
           public static void main(String[] args){
             MathExpression expression = new MathExpression.MathExpressionBuilder("pi").build();
-            System.out.printf(expression.evaluate()); 
+            System.out.println(expression.evaluate()); 
           }
       } 
 ```
 ```
 Following Built In Variables are available as part of this package - "pi", "π", "φ", "e"
+```
+##### 5. Evaluating Math Expression with Custom Function
+```java
+    import org.idey.excel.expression.MathExpression;
+    import org.idey.excel.expression.function.AbstractFunction;
+    
+    public class Sample{
+        public static void main(String[] args){
+          AbstractFunction fn = new AbstractFunction("now",0) {
+              @Override
+              protected Double apply(Double... args) {
+                  return 1d;
+              }
+
+          };
+          MathExpression expression = new MathExpression.MathExpressionBuilder("now").withUserDefineFunction(fn).build();
+          System.out.println(expression.evaluate()); 
+        }
+    }    
 ```
 
     

@@ -2,12 +2,375 @@
 <Diagram>
   <ID>JAVA</ID>
   <OriginalElement />
-  <nodes />
+  <nodes>
+    <node x="2861.0" y="868.5">org.idey.excel.expression.tokenizer.FunctionExpressionToken</node>
+    <node x="3331.261363636363" y="638.0">org.idey.excel.expression.function.BuiltInFunctions</node>
+    <node x="688.0" y="2528.0">org.idey.excel.expression.operator.AllowedCharsetUtil</node>
+    <node x="1095.0" y="2528.0">org.idey.excel.expression.function.AllowedFunctionUtil</node>
+    <node x="0.0" y="781.0">org.idey.excel.expression.operator.BuiltInOperators</node>
+    <node x="4250.269882201132" y="1897.0">org.idey.excel.Excel</node>
+    <node x="2375.608518564768" y="322.0">org.idey.excel.expression.tokenizer.AbstractExpressionToken</node>
+    <node x="1869.7258699633694" y="1930.0">org.idey.excel.expression.tokenizer.ExpressionTokenizer.TokenizerBuilder</node>
+    <node x="2527.0" y="880.0">org.idey.excel.expression.tokenizer.OpenParenthesesExpressionToken</node>
+    <node x="803.0" y="868.5">org.idey.excel.expression.tokenizer.OperatorExpressionToken</node>
+    <node x="4566.078215534465" y="300.0">org.idey.excel.expression.ValueExpPair</node>
+    <node x="4411.892536630036" y="2253.0">org.idey.excel.Excel.ExcelBuilder</node>
+    <node x="4397.3590680153175" y="813.5">org.idey.excel.expression.MathExpression</node>
+    <node x="1199.9999999999998" y="857.5">org.idey.excel.expression.tokenizer.NumberExpressionToken</node>
+    <node x="2418.1008699633694" y="2331.0">org.idey.excel.expression.rpn.ReversePolishNotation</node>
+    <node x="0.0" y="2528.0">org.idey.excel.PositiveBaseConverterEnum</node>
+    <node x="399.0" y="2528.0">org.idey.excel.expression.util.AssertUtil</node>
+    <node x="4514.261363636363" y="1463.0">org.idey.excel.ExcelData</node>
+    <node x="4235.078215534465" y="266.5">org.idey.excel.expression.ExpressionValidationResult</node>
+    <node x="4096.261363636363" y="1419.0">org.idey.excel.expression.MathExpression.MathExpressionBuilder</node>
+    <node x="387.108518564768" y="234.0">org.idey.excel.expression.operator.AbstractOperator</node>
+    <node x="3257.984068015318" y="256.0">org.idey.excel.expression.function.AbstractFunction</node>
+    <node x="19.0" y="1430.0">org.idey.excel.expression.operator.BuiltInOperators.BuiltInOperatorsPrecedance</node>
+    <node x="2415.108518564768" y="0.0">org.idey.excel.expression.tokenizer.TokenEnum</node>
+    <node x="1719.7258699633694" y="1287.0">org.idey.excel.expression.tokenizer.ExpressionTokenizer</node>
+    <node x="5254.261363636363" y="1529.5">org.idey.excel.expression.MathExpression.ConstantVariableUtil</node>
+    <node x="2203.0" y="880.0">org.idey.excel.expression.tokenizer.CloseParenthesesExpressionToken</node>
+    <node x="1881.9999999999998" y="868.5">org.idey.excel.expression.tokenizer.VariableExpressionToken</node>
+    <node x="452.0" y="813.0">org.idey.excel.expression.tokenizer.IllegalFunctionOrVariableException</node>
+    <node x="4839.261363636363" y="1429.5">org.idey.excel.graph.Graph</node>
+    <node x="1426.0" y="2528.0">org.idey.excel.expression.IgnoreCoverage</node>
+    <node x="1546.9999999999998" y="880.0">org.idey.excel.expression.tokenizer.ArgumentSeparatorExpressionToken</node>
+  </nodes>
   <notes />
-  <edges />
-  <settings layout="Hierarchic Group" zoom="1.0" x="0.0" y="0.0" />
+  <edges>
+    <edge source="org.idey.excel.expression.MathExpression" target="org.idey.excel.expression.ValueExpPair">
+      <point x="82.0" y="-104.0" />
+      <point x="4684.3590680153175" y="618.0" />
+      <point x="4693.994882201132" y="618.0" />
+      <point x="-25.58333333333303" y="71.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.NumberExpressionToken">
+      <point x="-113.09090909090901" y="-280.0" />
+      <point x="1917.6349608724604" y="1237.0" />
+      <point x="1363.4999999999998" y="1237.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="-164.0" y="-104.0" />
+      <point x="4438.3590680153175" y="538.0" />
+      <point x="2699.5585185647687" y="538.0" />
+      <point x="153.45000000000027" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.MathExpressionBuilder" target="org.idey.excel.expression.MathExpression">
+      <point x="76.80000000000018" y="-148.0" />
+      <point x="4365.061363636363" y="1247.0" />
+      <point x="4438.3590680153175" y="1247.0" />
+      <point x="-164.0" y="104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.OpenParenthesesExpressionToken">
+      <point x="113.09090909090901" y="-280.0" />
+      <point x="2143.8167790542784" y="1227.0" />
+      <point x="2678.0" y="1227.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer.TokenizerBuilder" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="120.75" y="-115.0" />
+      <point x="2151.4758699633694" y="1877.0" />
+      <point x="2799.4758699633694" y="1877.0" />
+      <point x="2799.4758699633694" y="1267.0" />
+      <point x="3309.761363636363" y="1267.0" />
+      <point x="3309.761363636363" y="608.0" />
+      <point x="3381.734068015318" y="608.0" />
+      <point x="-74.25" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer.TokenizerBuilder" target="org.idey.excel.expression.operator.AbstractOperator">
+      <point x="-120.75" y="-115.0" />
+      <point x="1909.9758699633694" y="1877.0" />
+      <point x="441.5" y="1877.0" />
+      <point x="441.5" y="618.0" />
+      <point x="603.358518564768" y="618.0" />
+      <point x="-43.25" y="137.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression" target="org.idey.excel.expression.ExpressionValidationResult">
+      <point x="-82.0" y="-104.0" />
+      <point x="4520.3590680153175" y="528.0" />
+      <point x="4390.578215534465" y="528.0" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="org.idey.excel.Excel.ExcelBuilder" target="org.idey.excel.Excel">
+      <point x="-49.714285714285325" y="-115.0" />
+      <point x="4536.178250915751" y="2213.0" />
+      <point x="4444.769882201132" y="2213.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.ValueExpPair" target="org.idey.excel.expression.MathExpression">
+      <point x="25.58333333333303" y="71.0" />
+      <point x="4745.161548867798" y="618.0" />
+      <point x="4766.3590680153175" y="618.0" />
+      <point x="164.0" y="-104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.IllegalFunctionOrVariableException">
+      <point x="-282.72727272727275" y="-280.0" />
+      <point x="1747.9985972360967" y="1267.0" />
+      <point x="617.0" y="1267.0" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.operator.BuiltInOperators.BuiltInOperatorsPrecedance" target="org.idey.excel.expression.operator.BuiltInOperators">
+      <point x="0.0" y="-137.0" />
+      <point x="0.0" y="136.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.ArgumentSeparatorExpressionToken">
+      <point x="-56.545454545454504" y="-280.0" />
+      <point x="1974.180415417915" y="1227.0" />
+      <point x="1704.4999999999998" y="1227.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.VariableExpressionToken">
+      <point x="0.0" y="-280.0" />
+      <point x="2030.7258699633694" y="1267.0" />
+      <point x="2032.4999999999998" y="1267.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.CloseParenthesesExpressionToken">
+      <point x="56.545454545454504" y="-280.0" />
+      <point x="2087.271324508824" y="1217.0" />
+      <point x="2355.0" y="1217.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.ConstantVariableUtil" target="org.idey.excel.expression.MathExpression">
+      <point x="-92.0" y="-37.5" />
+      <point x="5300.261363636363" y="1257.0" />
+      <point x="4766.3590680153175" y="1257.0" />
+      <point x="164.0" y="104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.rpn.ReversePolishNotation" target="org.idey.excel.expression.tokenizer.ExpressionTokenizer.TokenizerBuilder">
+      <point x="-84.25" y="-37.0" />
+      <point x="2502.3508699633694" y="2233.0" />
+      <point x="2030.7258699633694" y="2233.0" />
+      <point x="0.0" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ArgumentSeparatorExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="0.0" y="-37.5" />
+      <point x="1704.4999999999998" y="598.0" />
+      <point x="2460.858518564768" y="598.0" />
+      <point x="-85.25" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.operator.BuiltInOperators" target="org.idey.excel.expression.operator.AbstractOperator">
+      <point x="-107.75" y="-136.5" />
+      <point x="107.75" y="598.0" />
+      <point x="430.358518564768" y="598.0" />
+      <point x="-216.25" y="137.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.rpn.ReversePolishNotation" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="84.25" y="-37.0" />
+      <point x="2670.8508699633694" y="2233.0" />
+      <point x="3298.761363636363" y="2233.0" />
+      <point x="3298.761363636363" y="548.0" />
+      <point x="2665.4585185647684" y="548.0" />
+      <point x="119.34999999999991" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.VariableExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="0.0" y="-49.0" />
+      <point x="2032.4999999999998" y="608.0" />
+      <point x="2494.9585185647684" y="608.0" />
+      <point x="-51.15000000000009" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.expression.MathExpression">
+      <point x="0.0" y="-148.0" />
+      <point x="4444.769882201132" y="1877.0" />
+      <point x="4503.761363636363" y="1877.0" />
+      <point x="4503.761363636363" y="1267.0" />
+      <point x="4602.3590680153175" y="1267.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.OpenParenthesesExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="0.0" y="-37.5" />
+      <point x="2678.0" y="618.0" />
+      <point x="2563.158518564768" y="618.0" />
+      <point x="17.049999999999955" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.FunctionExpressionToken">
+      <point x="226.18181818181824" y="-280.0" />
+      <point x="2256.9076881451874" y="1247.0" />
+      <point x="3049.5" y="1247.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel.ExcelBuilder" target="org.idey.excel.expression.MathExpression">
+      <point x="149.14285714285688" y="-115.0" />
+      <point x="4735.035393772893" y="2233.0" />
+      <point x="5243.761363636363" y="2233.0" />
+      <point x="5243.761363636363" y="1267.0" />
+      <point x="4684.3590680153175" y="1267.0" />
+      <point x="82.0" y="104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer.TokenizerBuilder" target="org.idey.excel.expression.tokenizer.ExpressionTokenizer">
+      <point x="40.25" y="-115.0" />
+      <point x="2070.9758699633694" y="1867.0" />
+      <point x="2186.2258699633694" y="1867.0" />
+      <point x="155.5" y="280.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.NumberExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="0.0" y="-60.0" />
+      <point x="1363.4999999999998" y="588.0" />
+      <point x="2426.7585185647686" y="588.0" />
+      <point x="-119.34999999999991" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel.ExcelBuilder" target="org.idey.excel.graph.Graph">
+      <point x="49.714285714285325" y="-115.0" />
+      <point x="4635.606822344322" y="2213.0" />
+      <point x="5048.8925366300355" y="2213.0" />
+      <point x="5048.8925366300355" y="1877.0" />
+      <point x="5036.261363636363" y="1877.0" />
+      <point x="0.0" y="137.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.OperatorExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="94.25" y="-49.0" />
+      <point x="1085.75" y="578.0" />
+      <point x="2392.658518564768" y="578.0" />
+      <point x="-153.45000000000005" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.expression.MathExpression.MathExpressionBuilder">
+      <point x="-77.80000000000018" y="-148.0" />
+      <point x="4366.969882201131" y="1867.0" />
+      <point x="4288.261363636363" y="1867.0" />
+      <point x="0.0" y="148.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.OperatorExpressionToken" target="org.idey.excel.expression.operator.AbstractOperator">
+      <point x="-94.25" y="-49.0" />
+      <point x="897.25" y="608.0" />
+      <point x="776.358518564768" y="608.0" />
+      <point x="129.75" y="137.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel.ExcelBuilder" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="-149.14285714285688" y="-115.0" />
+      <point x="4436.7496794871795" y="2233.0" />
+      <point x="3320.761363636363" y="2233.0" />
+      <point x="3320.761363636363" y="618.0" />
+      <point x="3431.234068015318" y="618.0" />
+      <point x="-24.75" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.operator.AbstractOperator">
+      <point x="-226.18181818181824" y="-280.0" />
+      <point x="1804.5440517815512" y="1257.0" />
+      <point x="792.5" y="1257.0" />
+      <point x="792.5" y="618.0" />
+      <point x="689.858518564768" y="618.0" />
+      <point x="43.25" y="137.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.ConstantVariableUtil" target="org.idey.excel.expression.ValueExpPair">
+      <point x="92.0" y="-37.5" />
+      <point x="5484.261363636363" y="1267.0" />
+      <point x="5443.761363636363" y="1267.0" />
+      <point x="5443.761363636363" y="608.0" />
+      <point x="4847.494882201132" y="608.0" />
+      <point x="127.91666666666697" y="71.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="282.72727272727275" y="-280.0" />
+      <point x="2313.4531426906424" y="1257.0" />
+      <point x="3248.5" y="1257.0" />
+      <point x="3248.5" y="598.0" />
+      <point x="3332.234068015318" y="598.0" />
+      <point x="-123.75" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.CloseParenthesesExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="0.0" y="-37.5" />
+      <point x="2355.0" y="618.0" />
+      <point x="2529.0585185647683" y="618.0" />
+      <point x="-17.049999999999955" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="169.63636363636374" y="-280.0" />
+      <point x="2200.3622335997334" y="1237.0" />
+      <point x="2839.5" y="1237.0" />
+      <point x="2839.5" y="608.0" />
+      <point x="2597.2585185647686" y="608.0" />
+      <point x="51.15000000000009" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.FunctionExpressionToken" target="org.idey.excel.expression.tokenizer.AbstractExpressionToken">
+      <point x="-94.25" y="-49.0" />
+      <point x="2955.25" y="558.0" />
+      <point x="2631.358518564768" y="558.0" />
+      <point x="85.25" y="49.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.graph.Graph">
+      <point x="155.60000000000036" y="-148.0" />
+      <point x="4600.369882201132" y="1877.0" />
+      <point x="4904.92803030303" y="1877.0" />
+      <point x="-131.33333333333303" y="137.5" />
+    </edge>
+    <edge source="org.idey.excel.expression.function.BuiltInFunctions" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="-186.0" y="-279.5" />
+      <point x="3517.261363636363" y="618.0" />
+      <point x="3480.734068015318" y="618.0" />
+      <point x="24.75" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.FunctionExpressionToken" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="94.25" y="-49.0" />
+      <point x="3143.75" y="588.0" />
+      <point x="3282.734068015318" y="588.0" />
+      <point x="-173.25" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="-155.60000000000036" y="-148.0" />
+      <point x="4289.169882201131" y="1877.0" />
+      <point x="4085.761363636363" y="1877.0" />
+      <point x="4085.761363636363" y="608.0" />
+      <point x="3579.734068015318" y="608.0" />
+      <point x="123.75" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.ExcelData">
+      <point x="77.80000000000018" y="-148.0" />
+      <point x="4522.569882201132" y="1867.0" />
+      <point x="4666.761363636363" y="1867.0" />
+      <point x="0.0" y="104.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.MathExpressionBuilder" target="org.idey.excel.expression.ValueExpPair">
+      <point x="0.0" y="-148.0" />
+      <point x="4288.261363636363" y="1267.0" />
+      <point x="4284.969882201131" y="1267.0" />
+      <point x="4284.969882201131" y="618.0" />
+      <point x="4591.661548867798" y="618.0" />
+      <point x="-127.91666666666697" y="71.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.AbstractExpressionToken" target="org.idey.excel.expression.tokenizer.TokenEnum">
+      <point x="0.0" y="-49.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.MathExpressionBuilder" target="org.idey.excel.expression.function.AbstractFunction">
+      <point x="-76.80000000000018" y="-148.0" />
+      <point x="4211.461363636363" y="1267.0" />
+      <point x="4187.011363636363" y="1267.0" />
+      <point x="4187.011363636363" y="598.0" />
+      <point x="3629.234068015318" y="598.0" />
+      <point x="173.25" y="115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.MathExpression.MathExpressionBuilder" target="org.idey.excel.expression.operator.AbstractOperator">
+      <point x="-153.60000000000036" y="-148.0" />
+      <point x="4134.661363636363" y="1237.0" />
+      <point x="2850.5" y="1237.0" />
+      <point x="2850.5" y="568.0" />
+      <point x="862.858518564768" y="568.0" />
+      <point x="216.25" y="137.0" />
+    </edge>
+    <edge source="org.idey.excel.Excel" target="org.idey.excel.Excel.ExcelBuilder">
+      <point x="129.66666666666697" y="148.0" />
+      <point x="4574.436548867799" y="2233.0" />
+      <point x="4585.892536630036" y="2233.0" />
+      <point x="0.0" y="-115.0" />
+    </edge>
+    <edge source="org.idey.excel.expression.tokenizer.ExpressionTokenizer" target="org.idey.excel.expression.tokenizer.OperatorExpressionToken">
+      <point x="-169.63636363636374" y="-280.0" />
+      <point x="1861.0895063270057" y="1247.0" />
+      <point x="991.5" y="1247.0" />
+      <point x="0.0" y="49.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.18014772113132768" x="2765.5" y="1401.0" />
   <SelectedNodes />
-  <Categories />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Constructors</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+  </Categories>
   <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
 </Diagram>
 

@@ -15,7 +15,7 @@ Class Diagram
 
 API and Usage
 ====================
-1. Evaluating Simple Math Expression
+##### 1. Evaluating Simple Math Expression
 ```java
     import org.idey.excel.expression.MathExpression;
     public class Sample{
@@ -25,7 +25,7 @@ API and Usage
         }
     }
 ```
-2. Evaluating Math Expression with Built In Functions
+##### 2. Evaluating Math Expression with Built In Functions
 ```java
    import org.idey.excel.expression.MathExpression;
        public class Sample{
@@ -39,7 +39,7 @@ API and Usage
 Following Built In Functions are available as part of this package - "sin", "cos", "tan", "log", "log2", "log10", "log1p", 
 "abs", "acos", "asin", "atan", "cbrt", "floor", "sinh", "sqrt", "tanh", "cosh", "ceil", "pow", "exp", "expm1", "signum"
 ```
-3. Evaluating Math Expression with Built In Operators
+##### 3. Evaluating Math Expression with Built In Operators
 ```java
      import org.idey.excel.expression.MathExpression;
        public class Sample{
@@ -53,7 +53,7 @@ Following Built In Functions are available as part of this package - "sin", "cos
 Following Built In Operators are available as part of this package - "+", "-", "*", "/", "+ (unnary)", "- (unnary)", 
 "^", "%"
 ```
-3. Evaluating Math Expression with Built In Variables
+##### 4. Evaluating Math Expression with Built In Variables
 ```java
    import org.idey.excel.expression.MathExpression;
       /**

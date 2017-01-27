@@ -71,7 +71,7 @@ public final class ExcelData{
 
     @Override
     public String toString() {
-        if(errorMessage!=null && !("").equals(errorMessage.trim())){
+        if(isError()){
             return errorMessage.trim();
         }else{
             return Double.toString(data);

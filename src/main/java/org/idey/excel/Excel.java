@@ -5,6 +5,7 @@ import org.idey.excel.expression.MathExpression.MathExpressionBuilder;
 import org.idey.excel.expression.function.AbstractFunction;
 import org.idey.excel.graph.Graph;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -125,7 +126,7 @@ public final class Excel {
                 if(!this.builder.udf.isEmpty()){
                     builder.withUserDefineFunction(this.builder.udf.toArray(new AbstractFunction[this.builder.udf.size()]));
                 }
-                if(dependencyCellNames!=null && dependencyCellNames.length!=0){
+                if(dependencyCellNames!=null && dependencyCellNames.length>0){
                     for(final String dependencyVertex:dependencyCellNames){
                         if(dependencyVertex==null || "".equals(dependencyVertex.trim())){
                             throw new IllegalArgumentException("Invalid Dependency Vertex");
@@ -176,7 +177,12 @@ public final class Excel {
             this.cols = cols;
             this.udf = Collections.emptyList();
             if(udf!=null && udf.length>0){
-                this.udf = Arrays.asList(udf);
+                this.udf = new ArrayList<>();
+                for(AbstractFunction fn:udf) {
+                    if (fn != null) {
+                        this.udf.add(fn);
+                    }
+                }
             }
             initialize();
         }

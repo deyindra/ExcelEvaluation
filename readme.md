@@ -13,7 +13,7 @@ Class Diagram
 ============================
 ![class diagram](ExcelEvaluation.jpg)
 
-API and Usage
+API and Usage (MathExpression)
 ====================
 ##### 1. Evaluating Simple Math Expression
 ```java
@@ -88,5 +88,58 @@ Following Built In Variables are available as part of this package - "pi", "π",
         }
     }    
 ```
-
+##### 6. Evaluating Math Expression with Custom Operator
+```java
+    import org.idey.excel.expression.MathExpression;
+    import org.idey.excel.expression.operator.AbstractOperator;
     
+    public class Sample{
+        public static void main(String[] args){
+          AbstractOperator operator = new AbstractOperator(">>", 2, true, 10002) {
+             @Override
+             protected Double apply(Double... args) {
+                 int args0 = getInteger(args[0]);
+                 int args1 = getInteger(args[1]);
+                 return (double)(args0>>args1);
+             }
+             private int getInteger(Double value){
+                 final int intValue = value.intValue();
+                 if ((double) intValue != value) {
+                     throw new IllegalArgumentException("Operand for bit shift has to be an integer");
+                 }
+                 return intValue;
+             }
+         };
+          MathExpression expression = new MathExpression.MathExpressionBuilder("1>>2").withUserDefineOperator(operator).build();
+          System.out.println(expression.evaluate()); 
+        }
+    }
+```
+##### 7. Evaluating Math Expression with Substitue variable
+```java
+    import org.idey.excel.expression.MathExpression;
+    
+    public class Sample{
+        public static void main(String[] args){
+          MathExpression expression = new MathExpression.MathExpressionBuilder("x+2").withVariableOrExpressionsNames("x").build();
+          expression.setValue("x",2d);
+          System.out.println(expression.evaluate()); //print 4.0
+        }
+    }
+```    
+##### 8. Evaluating Math Expression with Substitue expression
+```java
+    import org.idey.excel.expression.MathExpression;
+    
+    public class Sample{
+        public static void main(String[] args){
+          MathExpression expression = new MathExpression.MathExpressionBuilder("x+2").withVariableOrExpressionsNames("x").build();
+          MathExpression subExpression = new MathExpression.MathExpressionBuilder("(2*3)").build();
+          expression.setExpression("x",subExpression);
+          System.out.println(expression.evaluate()); //print 4.0
+        }
+    }
+```
+    
+API and Usage (Excel)
+====================    

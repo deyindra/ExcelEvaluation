@@ -6,8 +6,14 @@ OverView
 ===========================
 ExcelEvaluation is a API to resolve set of math expression which are given in a nXm metrics where n is number of rows and m is number of cols.
 It has two compoments.
-1. MathExpression
-2. Excel
+##### 1. MathExpression
+##### 2. Excel
+
+Like an Excel Sheet, each cell will be named with an encoded value. E.g, for cell at row 1 and col 1 will be called as "A1"
+Similarly 
+##### * Cell at row 1 and col 27 will be called as AA1
+##### * Cell at row 1 and col 2 will be called as B1
+##### * Each cell value will be initialized with 0.0d.
  
 Class Diagram
 ============================
@@ -136,10 +142,82 @@ Following Built In Variables are available as part of this package - "pi", "π",
           MathExpression expression = new MathExpression.MathExpressionBuilder("x+2").withVariableOrExpressionsNames("x").build();
           MathExpression subExpression = new MathExpression.MathExpressionBuilder("(2*3)").build();
           expression.setExpression("x",subExpression);
-          System.out.println(expression.evaluate()); //print 4.0
+          System.out.println(expression.evaluate()); //print 8.0
         }
     }
 ```
     
 API and Usage (Excel)
 ====================    
+##### 1. Setting up Excel Object with N rows and M cols
+```java
+    
+   import org.idey.excel.Excel;
+   public class Sample{
+    public static void main(String[] args){
+      Excel excel = new Excel.ExcelBuilder(5,6).build();
+    }
+   } 
+```
+##### 2. Setting up Excel Object with N rows and M cols and set of UDF (user defined functions)
+```java
+   import org.idey.excel.Excel;
+   import org.idey.excel.expression.function.AbstractFunction;
+   
+   public class Sample{
+       public static void main(String[] args){
+         AbstractFunction[] udfs = new AbstractFunction[]{
+                                           new AbstractFunction("now", 0){
+                                               @Override
+                                               protected Double apply(Double... args) {
+                                                   return 1d;
+                                               }
+                                           }
+                                   };
+         /*
+          * this will build excel object with set of built In functions 
+          * (refer {@link org.idey.excel.expression.function.BuiltInFunctions}) and 
+          * set of UDFS (refer {@link AbstractFunction})  
+          */
+         Excel excel = new Excel.ExcelBuilder(5,6, udfs).build(); 
+       }
+   }
+
+```
+
+##### 3. Adding Expression to Excel Object
+```java
+   import org.idey.excel.Excel;
+
+   public class Sample{
+       public static void main(String[] args){
+          Excel excel = new Excel.ExcelBuilder(5,6).build();
+          /*
+          * Here Cell B1 will be evaluated as 5.0d and Cell A1 hence it depends on value B1
+          * will be evaluated as 6*5.0d which will be 30.0d.
+          */
+          excel.addExpression("2+3", "B1").addExpression("6*B1", "A1", "B1");   
+       }
+   } 
+```
+
+##### 4. Finally evaluating all the cell values of excel object
+```java
+   import org.idey.excel.Excel;
+   import org.idey.excel.ExcelData; 
+
+   public class Sample{
+       public static void main(String[] args){
+          Excel excel = new Excel.ExcelBuilder(5,6).build();
+          /*
+          * Here Cell B1 will be evaluated as 5.0d and Cell A1 hence it depends on value B1
+          * will be evaluated as 6*5.0d which will be 30.0d.
+          */
+          excel.addExpression("2+3", "B1").addExpression("6*B1", "A1", "B1");
+          /* In case any dependent cell evaluation return error then 
+           * actual cell also be evaluated as Error  
+           */
+          ExcelData[][] data = excel.evaluateData();
+       }
+   } 
+```
